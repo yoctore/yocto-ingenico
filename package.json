@@ -1,6 +1,6 @@
 {
   "name": "yocto-ingenico",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A utility tools to provide method to use ingenico services",
   "scripts": {
     "test": "grunt test"

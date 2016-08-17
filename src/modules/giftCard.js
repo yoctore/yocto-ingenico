@@ -86,10 +86,13 @@ GiftCard.prototype.getBalance = function (cardNumber, password) {
 
           // has error ?
           if (code !== '00') {
+
             // reject error
-            deferred.reject([ 'Invalid response code retreive from GetBalance call. Code :', code,
-              '- Message :', message.message
-               ].join(' '));
+            this.logger.error([ '[ Ingenico.giftCard.GetBalance ] -',
+              'Invalid response code retreive from GetBalance call. Code :', code,
+              '- Message :', message.message ].join(' '));
+            // reject with an object
+            deferred.reject({ code : code, message : message.message });
           } else {
             // resolve with data
             deferred.resolve(reply);
@@ -106,7 +109,7 @@ GiftCard.prototype.getBalance = function (cardNumber, password) {
       // reject
       deferred.reject(error);
     }
-  });
+  }.bind(this));
 
   // default statement
   return deferred.promise;
