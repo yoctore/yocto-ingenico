@@ -127,7 +127,10 @@ GiftCard.prototype.getBalance = function (cardNumber, password) {
           } else {
             var regex = /(.*)(:)(\s+)(\d+.+)(\s+)(.*)/gm;
             // return with new data
-            deferred.resolve(((_.get(reply, 'Message') || '0').replace(regex, `$4`)));
+            deferred.resolve({
+              'Amount'      : (_.get(reply, 'Message') || '0').replace(regex, '$4'),
+              'expiryDate'  : moment().format('YYYYMMDDHHmmss')
+            });
           }
         } else {
           // reject with message
