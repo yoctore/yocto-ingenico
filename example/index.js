@@ -12,7 +12,7 @@ config = _.first(_.values(_.pick(config, _.toLower(process.env.NODE_ENV) || 'sta
 console.log('testing in with following env values : ', config);
 
 if (ingenico.prepare(config)) {
-  ingenico.giftCard().getBalance('6391999501000285673', '1404').then(function (response) {
+  ingenico.giftCard().getBalance('6391999501000289360'/*'6391999501000285673'*/, /*'1404'*/ '5187').then(function (response) {
     console.log('response', response);
   }).catch(function (error) {
     console.log('error', error);

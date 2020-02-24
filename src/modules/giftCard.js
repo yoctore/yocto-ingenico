@@ -86,13 +86,13 @@ GiftCard.prototype.getBalance = function (cardNumber, password) {
     'Currency'      : 978,
     'Sequence'      : sequence
   };
-  console.log(formRequest);
+
   // process request
   request.post({
     uri       : [ this.config.uri, 'DoTransactionProcessing' ].join('/'),
     form      : formRequest
   }, function (error, response, body) {
-    console.log('body', body);
+    //console.log('body', body);
     // has no error ?
     if (!error && response.statusCode === 200) {
       // parse response
@@ -125,8 +125,9 @@ GiftCard.prototype.getBalance = function (cardNumber, password) {
               message   : _.get(message, 'message') || _.get(reply, 'Message')
             });
           } else {
-            // resolve with data
-            deferred.resolve(reply);
+            var regex = /(.*)(:)(\s+)(\d+.+)(\s+)(.*)/gm;
+            // return with new data
+            deferred.resolve(((_.get(reply, 'Message') || '0').replace(regex, `$4`)));
           }
         } else {
           // reject with message
